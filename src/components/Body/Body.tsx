@@ -36,7 +36,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart}                         
                         idproduto= "5326"
-                        imagem="./src/assets/images/cabo.jpg"
+                        imagem="/assets/images/cabo.jpg"
                         nome="Cabo Tipo-C/C 2,0m Cb838 Kimaster"
                         descricao='Cabo'
                         status="Disponível"
@@ -47,7 +47,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart} 
                         idproduto= "6346"
-                        imagem="./src/assets/images/adaptador.png"
+                        imagem="/assets/images/adaptador.png"
                         nome="Adaptador Hdmi 90º Macho Femea Storm/Oem"
                         descricao='Adaptador'
                         status="Disponível"
@@ -57,7 +57,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart} 
                         idproduto= "8441"
-                        imagem="./src/assets/images/ssd.png"
+                        imagem="/assets/images/ssd.png"
                         nome="Case HD 2.5`` SATA/SSDS USB3.0 BK P GA174"
                         descricao='ssd'
                         status="Disponível"
@@ -67,7 +67,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart} 
                         idproduto= "6261"
-                        imagem="./src/assets/images/luminaria.png"
+                        imagem="/assets/images/luminaria.png"
                         nome="Luminaria De Emergencia 30 Leds Lea30 Intelbras"
                         descricao='luminaria'
                         status="Disponível"
@@ -77,7 +77,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart} 
                         idproduto= "2131"
-                        imagem="./src/assets/images/leitor.png"
+                        imagem="/assets/images/leitor.png"
                         nome="Leitor Cartao Memoria 46 Em 1 Ac076 Multilaser"
                         descricao='Adaptador'
                         status="Disponível"
@@ -87,7 +87,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart} 
                         idproduto= "8682"
-                        imagem="./src/assets/images/headset.png"
+                        imagem="/assets/images/headset.png"
                         nome="Headset H151 Pt 981-000587 Logitech"
                         descricao='Headset'
                         status="Disponível"
@@ -97,7 +97,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart}
                         idproduto= "5311"
-                        imagem="./src/assets/images/webcam.png"
+                        imagem="/assets/images/webcam.png"
                         nome="Webcam C920S Pro Hd 1080p 960-001257 Logitech"
                         descricao='webcam'
                         status="Disponível"
@@ -107,7 +107,7 @@ interface BodyProps {
                         fetchCart={fetchCart}
                         setCart={setCart}
                         idproduto= "1574"
-                        imagem="./src/assets/images/estabilizador.png"
+                        imagem="/assets/images/estabilizador.png"
                         nome="Estabilizador 500va Biv/115v 60698"
                         descricao='estabilizador'
                         status="Disponível"
