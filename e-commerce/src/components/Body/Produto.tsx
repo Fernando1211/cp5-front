@@ -1,6 +1,7 @@
 import React from 'react';
 import './Body.css';
 import { useTodoApi } from '../../Endpoints';
+import {Target} from '../../Endpoints'
 
 interface ProdutoProps {
     idproduto: string;
@@ -9,33 +10,41 @@ interface ProdutoProps {
     descricao: string;
     status: string;
     esgotado?: boolean;
+    fetchCart: () => void;
+    setCart: React.Dispatch<React.SetStateAction<Target | null>>;
 }
 
-const Produto: React.FC<ProdutoProps> = ({ imagem, nome, descricao, status, esgotado, idproduto }) => {
-    const { getCartTarget, createTodo, createTarget } = useTodoApi();
+const Produto: React.FC<ProdutoProps> = ({ imagem, nome, status, esgotado, fetchCart }) => {
+    const { getCartTarget, createTodo, createTarget, todos, updateTodo } = useTodoApi();
 
     const handleAddToCart = async () => {
         try {
-            let cart = await getCartTarget();
-            if (!cart) {
-                cart = await createTarget();
-            }
-            console.log('Carrinho atual:', cart);
-
+          let cart = await getCartTarget();
+          if (!cart) {
+            cart = await createTarget();
+          }
+      
+          const existingTodo = todos.find(
+            (todo) => todo.title === nome && todo.targetId === cart.id
+          );
+      
+          if (existingTodo) {
+            const newQuantity = existingTodo.quantity + 1;
+            await updateTodo(existingTodo.id, newQuantity);
+          } else {
             const newTodo = {
-                id: parseInt(idproduto),
-                title: nome,
-                description: descricao,
-                isComplete: false,
-                targetId: cart.id,
+              title: nome,
+              isComplete: false,
+              targetId: cart.id,
             };
-            console.log('Id do carrinho:', cart.id)
-            await createTodo(newTodo);
-            console.log('Produto adicionado ao carrinho:', newTodo);
+            await createTodo(newTodo, 1);
+          }
+      
+          await fetchCart();
         } catch (error) {
-            console.error('Erro ao adicionar produto ao carrinho:', error);
+          console.error('Erro ao adicionar produto ao carrinho:', error);
         }
-    };
+      };
 
     return (
         <div className="produto-container">

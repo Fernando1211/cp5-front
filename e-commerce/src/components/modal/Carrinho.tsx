@@ -10,31 +10,24 @@ interface CarrinhoProps {
 }
 
 const Carrinho: React.FC<CarrinhoProps> = ({ isOpen, onClose }) => {
-    const { currentCart, setCurrentCart, getCartTarget, todos, deleteTarget, updateTarget, getAllTargets, targets } = useTodoApi();
+    const { currentCart, setCurrentCart, getCartTarget, todos, deleteTarget, getAllTargets, targets, updateTodo, deleteTodo } = useTodoApi();
     const [localQuantities, setLocalQuantities] = useState<{ [todoId: number]: number }>({});
     const [showPreviousPurchases, setShowPreviousPurchases] = useState(false);
     const [selectedEnvio, setSelectedEnvio] = useState<string>('SEDEX'); 
 
     useEffect(() => {
         if (isOpen) {
-            const fetchCart = async () => {
-                try {
-                    const cart = await getCartTarget();
-                    console.log('Fetch:', cart)
-            
-                    if (cart) {
-                        const cart = await getCartTarget();
-                        console.log('Fetch:', cart)
-                        console.log('Fetch ID:', cart.id)
-                        setCurrentCart(cart);
-                    }
-                } catch (error) {
-                    console.error("Erro ao buscar carrinho:", error);
-                }
-            };
-            fetchCart();
+          const fetchCartData = async () => {
+            try {
+              const cart = await getCartTarget();
+              setCurrentCart(cart);
+            } catch (error) {
+              console.error("Erro ao buscar carrinho:", error);
+            }
+          };
+          fetchCartData();
         }
-    }, [isOpen]);
+      }, [isOpen]);
 
 
     useEffect(() => {
@@ -48,12 +41,26 @@ const Carrinho: React.FC<CarrinhoProps> = ({ isOpen, onClose }) => {
     }, [todos]);
 
 
-    const handleQuantityChange = (todoId: number, change: number) => {
-        setLocalQuantities((prev) => {
-            const newQuantity = Math.max(1, (prev[todoId] || 1) + change);
-            return { ...prev, [todoId]: newQuantity };
-        });
-    };
+    const handleDeleteItem = async (todoId: number) => {
+        try {
+          await deleteTodo(todoId);
+        } catch (error) {
+          console.error('Erro ao remover o item:', error);
+        }
+      };
+
+
+    const handleQuantityChange = async (todoId: number, newQuantity: number) => {
+        if (newQuantity <= 0) {
+          await handleDeleteItem(todoId);
+        } else {
+          try {
+            await updateTodo(todoId, newQuantity);
+          } catch (error) {
+            console.error('Erro ao atualizar a quantidade:', error);
+          }
+        }
+      };
 
 
     const handleShowPreviousPurchases = async () => {
@@ -70,18 +77,20 @@ const Carrinho: React.FC<CarrinhoProps> = ({ isOpen, onClose }) => {
         <div className="modal-overlay">
             <div className="modal-content">        
                 <h2>Carrinho de Compras</h2>
-                {currentCart?.todo?.length > 0 ? (
-                    currentCart.todo.map((todo) => (
+                {todos.length > 0 ? (
+                todos.map((todo) => (
                     <div key={todo.id} className="cart-item">
-                        <h3>{todo.title}</h3>
-                        <p>{todo.description}</p>
+                    <h3>{todo.title}</h3>
+                    <div className='cart-operations-container'>
                         <div className="quantity-control">
-                            <button onClick={() => handleQuantityChange(todo.id, -1)}>-</button>
-                            <input type="number" value={localQuantities[todo.id] || 1} readOnly />
-                            <button onClick={() => handleQuantityChange(todo.id, 1)}>+</button>
+                            <button onClick={() => handleQuantityChange(todo.id, todo.quantity - 1)}>-</button>
+                            <input type="number" value={todo.quantity} readOnly />
+                            <button onClick={() => handleQuantityChange(todo.id, todo.quantity + 1)}>+</button>
                         </div>
+                            <button className='delete-button' onClick={() => handleDeleteItem(todo.id)}>Remover</button>                        
                     </div>
-                    ))
+                </div>
+                ))
                 ) : (
                     <p className="carrinho-text">Carrinho vazio</p>
                 )}
@@ -193,7 +202,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({ isOpen, onClose }) => {
                     <button onClick={handleShowPreviousPurchases} className="close-modal">
                         Ver Compras Anteriores
                     </button>
-                    <button onClick={() => currentCart?.id && updateTarget(currentCart?.id, { isComplete: true })} className="finalizar-button">
+                    <button onClick={() => currentCart?.id } className="finalizar-button">
                         Finalizar compra
                     </button>                    
                 </div>
@@ -201,7 +210,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({ isOpen, onClose }) => {
                         <div className='compras-anteriores-container'>
                             <h3>Compras anteriores</h3>
                             {targets.map((target) => (
-                                <div key={target.id}>
+                                <div className='compras-anteriores-text' key={target.id}>
                                     <p>{target.title}</p>
                                     <p>{target.description}</p>
                                 </div>

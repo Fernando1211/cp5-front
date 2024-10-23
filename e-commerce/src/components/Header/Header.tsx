@@ -2,14 +2,21 @@ import { useState } from 'react';
 import Carrinho from '../modal/Carrinho';
 import './Header.css'
 import carrinhoImage from '../../assets/images/carrinho.png';
+import {Target} from '../../Endpoints'
 
-const Header = () => {
+interface HeaderProps {
+    cart: Target | null;
+    fetchCart: () => void;
+  }
+
+const Header: React.FC<HeaderProps> = ({ cart, fetchCart }) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
 
 
-const toggleCart = () => {
+const toggleCart =  async () => {
     setIsCartOpen(!isCartOpen);
-    };
+    await fetchCart();
+};
 
 
     return (
@@ -47,6 +54,7 @@ const toggleCart = () => {
 
                     <div className="carrinho-icon" onClick={toggleCart}>
                         <img src={carrinhoImage} alt="Carrinho" />
+                        
                     </div>
 
                     <div className="carrinho-info">
@@ -58,16 +66,17 @@ const toggleCart = () => {
                         <div className="carrinho-line"></div>
 
                         <div className="carrinho-details">
-                            <span>0 itens</span>
+                            <span>{cart?.todo?.length || 0} itens</span>
                             <span>R$ 0,00</span>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div className='linha-separadora'></div>           
+            <div className='linha-separadora'></div>      
+                 
 
-      <Carrinho isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />    
+            <Carrinho isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} fetchCart={fetchCart} />
         </header>
       );
 }
