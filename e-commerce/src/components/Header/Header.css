@@ -1,0 +1,137 @@
+.header-top-container {
+    background-color: rgb(226, 226, 226);
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 25rem;  
+}
+
+.left-section span, 
+.right-section span {
+  color: #666;
+  font-size: 25px;
+}
+
+a {
+    color: #0071bc;
+    text-decoration: none;
+    font-size: 25px;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .divider {
+    margin: 20px 20px;
+    color: #666;
+  }
+
+
+
+  .header-bottom-container {
+    background-color: white;
+    height: fill;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 35rem;  
+}
+
+.logo {
+    background-image: url('../../assets/images/logo.png');
+    background-size: cover;
+    background-position: center;
+    content: '';
+    width: 260px;
+    height: 250px;   
+}
+
+.barra-pesquisa {
+    background-color: rgb(240, 240, 240);
+    height: 80px;
+    width: 1000px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-image: url(../../assets/images/lupa.png);
+    background-repeat: no-repeat;
+    background-position: center right calc(100% - 920px);
+    background-size: 42px;
+    border: 2px solid #8f8f8f;
+    font-size: 25px;
+}
+
+.barra-pesquisa::placeholder {
+    font-size: 25px;    
+}
+
+.barra-pesquisa:focus {
+    background-image: none;
+}
+
+.carrinho-container {
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+}
+
+.carrinho-icon {
+    background-color: transparent;
+    padding: 10px;
+}
+
+.carrinho-icon img {
+    width: 90px;
+    height: 90px;
+}
+
+.carrinho-icon:hover {
+    cursor: pointer;
+}
+
+.carrinho-info {
+    margin-left: 10px;
+    width: 300px;
+}
+
+.carrinho-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.carrinho-title span {
+    font-weight: bold;
+    color: #0071bc;
+}
+
+.carrinho-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #0071bc;
+    width: 110%;
+    margin-left: -20px;
+}
+
+.carrinho-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.carrinho-details span {
+    font-size: 25px;
+    color: black;
+    margin-left: 20px;
+}
+
+.linha-separadora {
+    background-color: #0071bc;
+    height: 10px;
+    content: '';
+}
