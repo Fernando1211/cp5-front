@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body, #root {
+    height: 100%;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: yellow;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header {
+    background-color: red;
+    height: fit-content;
+  }
+  
+  main {
+    padding: 2rem;
+    flex-grow: 1;
+  }
+  
+  footer {
+    background-color: green;
+    height: 876px;
+  }
+  
