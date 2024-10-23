@@ -14,7 +14,7 @@
 }
 
 a {
-    color: rgb(29, 29, 206);
+    color: #0071bc;
     text-decoration: none;
     font-size: 25px;
   }
@@ -103,13 +103,13 @@ a {
 
 .carrinho-title span {
     font-weight: bold;
-    color: rgb(29, 29, 206);
+    color: #0071bc;
 }
 
 .carrinho-line {
     flex-grow: 1;
     height: 2px;
-    background-color: rgb(29, 29, 206);
+    background-color: #0071bc;
     width: 110%;
     margin-left: -20px;
 }
@@ -127,7 +127,7 @@ a {
 }
 
 .linha-separadora {
-    background-color: rgb(58, 58, 223);
+    background-color: #0071bc;
     height: 10px;
     content: '';
 }

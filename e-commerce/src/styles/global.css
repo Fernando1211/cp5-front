@@ -10,7 +10,8 @@
   
   body {
     font-family: Arial, sans-serif;
-    background-color: yellow;
+    background-color: white;
+    height: fit-content;
   }
   
   .app-container {
@@ -20,7 +21,7 @@
   }
   
   header {
-    background-color: red;
+    background-color: transparent;
     height: fit-content;
   }
   

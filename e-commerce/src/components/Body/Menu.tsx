@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Body.css'
 
 const Menu = () => {
@@ -25,6 +25,7 @@ const Menu = () => {
                         <ul className="submenu">
                             <li>Adaptador USB</li>
                             <li>Adaptador HDMI</li>
+                            <div className='menu-separadora'></div>
                         </ul>
                     )}
                 </li>
@@ -38,6 +39,7 @@ const Menu = () => {
                         <ul className="submenu">
                             <li>Cabo HDMI</li>
                             <li>Cabo USB</li>
+                            <div className='menu-separadora'></div>
                         </ul>
                     )}
                 </li>
@@ -51,6 +53,7 @@ const Menu = () => {
                         <ul className="submenu">
                             <li>Carregador</li>
                             <li>Baterias</li>
+                            <div className='menu-separadora'></div>
                         </ul>
                     )}
                 </li>
@@ -65,6 +68,7 @@ const Menu = () => {
                             <li>Hub USB</li>
                             <li>Leitor de Cartão</li>
                             <li>Teclado</li>
+                            <div className='menu-separadora'></div>
                         </ul>
                     )}
                 </li>
@@ -78,6 +82,7 @@ const Menu = () => {
                         <ul className="submenu">
                             <li>Chave de Fenda</li>
                             <li>Alicate</li>
+                            <div className='menu-separadora'></div>
                         </ul>
                     )}
                 </li>
