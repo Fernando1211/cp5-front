@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Carrinho from '../modal/Carrinho';
 import './Header.css'
-import carrinhoImage from '../../assets/images/carrinho.png';
+import carrinhoImage from '../../../public/assets/images/carrinho.png';
 import {Target} from '../../Endpoints'
 
 interface HeaderProps {
