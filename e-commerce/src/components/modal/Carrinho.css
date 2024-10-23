@@ -1,0 +1,235 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 50px;
+    border-radius: 8px;
+    width: 2000px;
+    height: fit-content;
+    position: relative;
+    border: 10px solid #003399;
+  }
+
+  .modal-content h2 {
+    color: #0071bc;
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 50px;
+  }
+  
+  .close-modal {
+    background: rgb(38, 119, 190);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    height: 80px;
+    width: 400px;
+    font-size: 30px;
+    border-radius: 10px;
+  }
+  
+  .cart-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+
+  .carrinho-text {
+    font-size: 40px;
+  }
+
+  .frete-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .barra-cep {
+    background-color: rgb(240, 240, 240);
+    height: 82px;
+    width: 300px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 2px solid #727272;
+    font-size: 25px;
+  }
+
+  .frete-button {
+    background-color: #0071bc;
+    color: white;
+    border: none;
+    font-weight: 400;
+    padding: 10px 20px;
+    font-size: 26px;
+    cursor: pointer;
+    width: 250px;
+    height: 80px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .envio-container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    width: 850px;
+  }
+  
+  .envio-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .envio-tabela th,
+  .envio-tabela td {
+    padding: 10px;
+  }
+  
+  .envio-tabela th {
+    font-size: 25px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .envio-tabela td {
+    font-size: 25px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  label {
+    cursor: pointer;
+  }
+
+  .carrinho-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 70px;  
+    margin-bottom: 70px;
+  }
+
+  .carrinho-container-right {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .carrinho-container-left {
+    padding: 10px 20px;
+    flex-direction: column;
+    gap: 50px;
+    align-items: right;
+    justify-content: right;
+    text-align: right;
+  }
+
+  .preco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    justify-content: right;
+    gap: 250px;
+  }
+
+  .preco h1{
+    font-size: 35px;
+    color: #333;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .preco h2 {
+    font-size: 35px;
+    color: #0071bc;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cupom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 90px;
+  }
+
+  .cupom h1{
+    font-size: 22px;
+  }
+
+  .cupom h2{
+    font-size: 30px;
+  }
+
+  .cupom h2:hover{
+    cursor: pointer;
+  }
+
+  .carrinho-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .finalizar-button {
+    background: rgb(38, 190, 117);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    height: 80px;
+    width: 400px;
+    font-size: 30px;
+    border-radius: 10px;  
+  }
+
+  .limpar-carrinho-button{
+    font-size: 20px;
+    border: none;
+    width: fit-content;
+    height: 60px;
+    text-align: right;
+    background-color: transparent;
+  }
+
+  .limpar-carrinho-button:hover{
+    text-decoration: underline;
+  }
+
+  .compras-anteriores-container{
+    display: flex;
+    margin-top: 90px;
+    justify-content: center;    
+  }
+
+  .compras-anteriores-container h3{
+    font-size: 35px;
+    align-self: center;
+    color: #0071bc;
+  }
+  
+  

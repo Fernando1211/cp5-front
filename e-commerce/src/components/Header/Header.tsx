@@ -1,7 +1,17 @@
+import { useState } from 'react';
+import Carrinho from '../modal/Carrinho';
 import './Header.css'
 import carrinhoImage from '../../assets/images/carrinho.png';
 
 const Header = () => {
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
+
+const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+    };
+
+
     return (
         <header>
 
@@ -35,7 +45,7 @@ const Header = () => {
 
                 <div className="carrinho-container">
 
-                    <div className="carrinho-icon">
+                    <div className="carrinho-icon" onClick={toggleCart}>
                         <img src={carrinhoImage} alt="Carrinho" />
                     </div>
 
@@ -54,8 +64,10 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            
+            <div className='linha-separadora'></div>           
 
-            <div className='linha-separadora'></div>    
+      <Carrinho isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />    
         </header>
       );
 }
