@@ -22,7 +22,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({ isOpen, onClose }) => {
               const cart = await getCartTarget();
               setCurrentCart(cart);
             } catch (error) {
-              console.error("Erro ao buscar carrinho:", error);
+              console.error("Erro ao buscar carrinho:", localQuantities);
             }
           };
           fetchCartData();
