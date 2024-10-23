@@ -87,6 +87,10 @@ a {
     height: 90px;
 }
 
+.carrinho-icon:hover {
+    cursor: pointer;
+}
+
 .carrinho-info {
     margin-left: 10px;
     width: 300px;

@@ -1,0 +1,97 @@
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 25rem;
+
+}
+
+.footer-top-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 160px;
+    margin-bottom: 160px;
+    gap: 150px;
+}
+
+.footer-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: black;
+    text-align: left;
+    width: 430px;
+}
+
+.footer-item h2
+ {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-item h3,
+.contato-container h3 {
+    font-size: 30px;
+    font-weight: 100;
+}
+
+.footer-item h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.contato-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-item-icon {
+    height: 82px;
+    width: 94px;    
+}
+
+.pagamento-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagamento-container h3 {
+    color: rgb(0, 80, 174);
+    font-weight: 600;
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+.pagamento-items {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.seguranca-icon {
+    height: 132px;
+    width: 354px;    
+    cursor: pointer;
+}
+
+.insta-icon {
+    height: 132px;
+    width: 132px;    
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.footer-lower-container {
+    background-color: rgb(0, 80, 174);
+    padding: 1rem 25rem;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-size: 20px;
+}
