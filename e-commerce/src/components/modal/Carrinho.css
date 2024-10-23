@@ -219,5 +219,80 @@
   .limpar-carrinho-button:hover{
     text-decoration: underline;
   }
+
+  .compras-anteriores-container{
+    display: flex;
+    margin-top: 90px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .compras-anteriores-container h3{
+    font-size: 35px;
+    align-self: left;
+    color: #0071bc;
+  }
+
+  .compras-anteriores-text{
+    font-size: 25px;
+    text-align: center;
+    gap: 150px;
+  }
+
+  .quantity-control {
+    display: flex;
+    align-items: center;
+  }
+
+  .quantity-control button {
+    height: 50px;
+    width: 60px;
+    font-size: 50px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    text-align: center;
+    line-height: 1;
+    background-color: #0071bc;
+    color: white;
+    border: 0;
+  }
+
+  .quantity-control input {
+    height: 50px;
+    width: 100px;
+    font-size: 50px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .modal-content h3 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .delete-button {
+    height: 50px;
+    width: 260px;
+    font-size: 35px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    text-align: center;
+    line-height: 1;
+    background-color: #0071bc;
+    color: white;
+    border: 0;
+  }
+
+  .cart-operations-container {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
   
   

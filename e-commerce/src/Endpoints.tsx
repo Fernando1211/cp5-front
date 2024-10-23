@@ -11,17 +11,19 @@ const requestBase = axios.create({
 
 interface Todo {
   id: number;
-  title: string;
-  description: string;
+  title: string | null;
+  description: string | null;
   isComplete: boolean;
-  targetId: number;
+  targetId: number; 
+  quantity: number; 
 }
 
-interface Target {
+export interface Target {
   id: number;
   title: string;
   description: string;
   isComplete: boolean;
+  todo: Todo[];
 }
 
 export const useTodoApi = () => {
@@ -30,40 +32,64 @@ export const useTodoApi = () => {
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [currentCart, setCurrentCart] = useState<Target | null>(null);
 
+  const parseQuantity = (description: string | null): number => {
+    const quantity = parseInt(description || '1', 10);
+    return isNaN(quantity) ? 1 : quantity;
+  };
 
   const getAllTargets = async () => {
     try {
       const response = await requestBase.get('Targets');
       setTargets(response.data);
     } catch (error) {
-      console.error('Erro ao buscar targets:', error);
+      console.error(error);
     }
   };
 
   const getCartTarget = async () => {
     try {
-      if (currentCart) return currentCart;
+      const response = await requestBase.get('Targets');
+      if (response.data.length > 0) {
+        const existingCart = response.data.find((target: Target) => !target.isComplete);
+        if (existingCart) {
+          const cartResponse = await requestBase.get(`Targets/${existingCart.id}`);
+          const cartData = cartResponse.data;
 
-      const response = await requestBase.post('Targets', {
+          if (cartData.todo) {
+            const todosWithQuantities = cartData.todo.map((todo: Todo) => ({
+              ...todo,
+              quantity: parseQuantity(todo.description),
+            }));
+            cartData.todo = todosWithQuantities;
+            setTodos(todosWithQuantities);
+          }
+
+          setCurrentCart(cartData);
+          return cartData;
+        }
+      }
+
+      const newCartData = {
         title: 'Carrinho de compras',
-        description: 'Carrinho de compras do cliente',
         isComplete: false,
-        todo: [],
-      });
+        description: 'Carrinho de compras do cliente',
+      };
+      const createdCartResponse = await requestBase.post('Targets', newCartData);
+      const createdCart = createdCartResponse.data;
 
-      setCurrentCart(response.data);
-      return response.data;
+      setCurrentCart(createdCart);
+      return createdCart;
     } catch (error) {
-      console.error('Error ao criar ou recuperar carrinho:', error);
+      console.error(error);
     }
   };
 
   const getTodosByTarget = async (targetId: number) => {
     try {
       const response = await requestBase.get(`Targets/${targetId}`);
-      setTodos(response.data.todo);
+      setTodos(response.data);
     } catch (error) {
-      console.error('Erro ao buscar todos por target:', error);
+      console.error(error);
     }
   };
 
@@ -72,46 +98,84 @@ export const useTodoApi = () => {
       const response = await requestBase.get(`Todo/${todoId}`);
       setSelectedTodo(response.data);
     } catch (error) {
-      console.error('Error fetching todo by ID:', error);
+      console.error(error);
     }
   };
 
-  const createTarget = async (newTarget: Omit<Target, 'id'>) => {
+  const createTarget = async () => {
     try {
-      const response = await requestBase.post('Targets', newTarget);
-      setTargets((prevTargets) => [...prevTargets, response.data]);
+        const response = await requestBase.post('Targets', {
+            title: 'Carrinho de compras',
+            description: 'Carrinho de compras do cliente',
+            isComplete: false,
+        });
+          setCurrentCart(response.data);
+          return response.data;
+      } catch (error) {
+          console.error(error);
+      }
+  };
+
+  const createTodo = async (
+    newTodo: Omit<Todo, 'id' | 'description' | 'quantity'>,
+    quantity: number
+  ) => {
+    try {
+      const todoData = {
+        ...newTodo,
+        description: quantity.toString(),
+        isComplete: false,
+      };
+  
+      const response = await requestBase.post('Todo', todoData);
+      const createdTodo = {
+        ...response.data,
+        quantity: quantity,
+      };
+      setTodos((prevTodos) => [...prevTodos, createdTodo]);
+  
+      if (currentCart) {
+        const updatedCartResponse = await requestBase.get(`Targets/${currentCart.id}`);
+        setCurrentCart(updatedCartResponse.data);
+      }
     } catch (error) {
-      console.error('Error creating target:', error);
+      console.error('Erro ao criar todo:', error);
     }
   };
-
-  const createTodo = async (newTodo: Omit<Todo, 'id'>) => {
+  
+  const updateTodo = async (todoId: number, quantity: number) => {
     try {
-      const response = await requestBase.post('Todo', newTodo);
-      setTodos((prevTodos) => [...prevTodos, response.data]);
-    } catch (error) {
-      console.error('Error creating todo:', error);
-    }
-  };
-
-  const updateTarget = async (targetId: number, updatedTarget: Partial<Target>) => {
-    try {
-      await requestBase.put(`Targets/${targetId}`, updatedTarget);
-      console.log('Carrinho atualizado:', updatedTarget);
-      getTodosByTarget(targetId);
-    } catch (error) {
-      console.error('Erro ao atualizar o target (carrinho):', error);
-    }
-  };
-
-  const updateTodo = async (todoId: number, updatedTodo: Partial<Todo>) => {
-    try {
+      const existingTodo = todos.find((todo) => todo.id === todoId);
+      if (!existingTodo) {
+        console.error(`Todo with ID ${todoId} not found.`);
+        return;
+      }
+  
+      const updatedTodo = {
+        id: existingTodo.id,
+        title: existingTodo.title,
+        isComplete: existingTodo.isComplete,
+        description: quantity.toString(),
+        targetId: existingTodo.targetId,
+      };
+  
       await requestBase.put(`Todo/${todoId}`, updatedTodo);
-      getTodosByTarget(updatedTodo.targetId || 0);
+  
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === todoId ? { ...todo, quantity, description: updatedTodo.description } : todo
+        )
+      );
+  
+      if (currentCart) {
+        const updatedCartResponse = await requestBase.get(`Targets/${currentCart.id}`);
+        setCurrentCart(updatedCartResponse.data);
+      }
     } catch (error) {
-      console.error('Error updating todo:', error);
+      console.error(error);
     }
   };
+  
 
   const deleteTarget = async (targetId: number) => {
     try {
@@ -120,16 +184,34 @@ export const useTodoApi = () => {
       setCurrentCart(null);
       setTodos([]);
     } catch (error) {
-      console.error('Erro ao deletar o carrinho:', error);
+      console.error(error);
     }
   };
 
   const deleteTodo = async (todoId: number) => {
     try {
       await requestBase.delete(`Todo/${todoId}`);
+  
       setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todoId));
+  
+      const cart = await getCartTarget();
+      if (cart) {
+        setCurrentCart(cart);
+      }
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      console.error(error);
+    }
+  };
+
+  const fetchCart = async () => {
+    try {
+      const cart = await getCartTarget();
+      if (cart) {
+        const updatedCart = await getTodosByTarget(cart.id);
+        setCurrentCart({ ...cart, todo: updatedCart });
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -144,9 +226,10 @@ export const useTodoApi = () => {
     getTodoById,
     createTarget,
     createTodo,
-    updateTarget,
     updateTodo,
     deleteTarget,
     deleteTodo,
+    setCurrentCart,
+    fetchCart,
   };
 };
